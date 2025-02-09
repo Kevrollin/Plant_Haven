@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useCart } from "../context/CartContext";
-import { FaArrowLeft, FaArrowRight, FaTimes, FaSearch, FaFilter, FaWhatsapp } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaTimes, FaSearch, FaFilter } from "react-icons/fa";
 
 const ShopPage = () => {
   const { addToCart } = useCart();
@@ -70,7 +70,7 @@ const ShopPage = () => {
     <section className="w-full max-w-7xl lg:container sm:mx-auto py-12 bg-green-50 pt-48">
       <div className="w-full text-center">
         <h2 className="text-3xl font-bold sm:text-6xl text-gray-800">🛍️ Shop <span className="text-primary">Plants</span></h2>
-        <p className="mt-2 text-3xl text-gray-600">Browse and purchase your favorite plants.</p>
+        <p className="mt-2 text-3xl text-gray-600">Browse and purchase your&nbsp;favorite&nbsp;plants.</p>
       </div>
 
       {/* Search & Filter Options */}
@@ -183,7 +183,7 @@ const ShopPage = () => {
                           width={450}
                           height={450}
                           className="w-full h-96 object-cover rounded-xl shadow-lg"
-                          unoptimized
+                          priority
                         />
                         
                         {/* Arrows for Navigation */}
@@ -218,7 +218,7 @@ const ShopPage = () => {
       
                     {/* Product Details */}
                     <div className="flex flex-col justify-center">
-                      <h2 className="text-3xl font-semibold text-gray-800">{selectedProduct.name}</h2>
+                    <h2 className="text-3xl font-semibold text-gray-800">{selectedProduct.name.replace(/'/g, "&apos;").replace(/"/g, "&quot;")}</h2>
                       <p className="text-gray-600 mt-3 leading-relaxed">{selectedProduct.description}</p>
                       <p className="text-green-600 font-bold text-2xl mt-4">${selectedProduct.price}</p>
       

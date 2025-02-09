@@ -84,7 +84,7 @@ const ContactPage = () => {
         transition={{ duration: 1, delay: 0.4 }}
       >
         <h2 className="text-3xl font-bold text-green-800 text-center">Send Us a Message</h2>
-        <p className="mt-4 text-center text-gray-700">We'd love to hear from you. Fill out the form below.</p>
+        <p className="mt-4 text-center text-gray-700">We would love to hear from you. Fill out the form below.</p>
 
         <div className="mt-8 max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
           <form onSubmit={handleSubmit} className="space-y-6">

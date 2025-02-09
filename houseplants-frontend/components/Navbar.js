@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaShoppingCart, FaUserCircle, FaBars, FaTimes, FaSearch, FaBell } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,7 +93,7 @@ const Navbar = () => {
               <button className="focus:outline-none">
                 <FaUserCircle size={22} className="cursor-pointer" />
               </button>
-              <div className="absolute right-0 bg-white text-gray-900 shadow-lg rounded-lg p-2 w-40 hidden group-hover:block">
+              <div className="absolute right-0 bg-white text-gray-900 shadow-lg rounded-lg p-2 w-40 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 {session ? (
                   <>
                     <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100">
@@ -172,8 +172,10 @@ const Navbar = () => {
 
 // Reusable NavItem Component
 const NavItem = ({ href, text, onClick }) => (
-  <Link href={href} onClick={onClick} className="hover:text-green-400 transition duration-300">
-    {text}
+  <Link href={href} passHref>
+    <span onClick={onClick} className="hover:text-green-400 transition duration-30 cursor-pointer">
+      {text}
+    </span>
   </Link>
 );
 

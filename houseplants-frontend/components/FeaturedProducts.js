@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useCart } from "../context/CartContext";
-import { FaArrowLeft, FaArrowRight, FaTimes, FaSearch, FaFilter, FaWhatsapp } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaTimes, FaSearch, FaFilter } from "react-icons/fa";
 
 const FeaturedProducts = ({ products }) => {
   const { addToCart } = useCart();
@@ -48,12 +48,13 @@ const FeaturedProducts = ({ products }) => {
       if (priceFilter === "low") return product.price < 20;
       if (priceFilter === "mid") return product.price >= 20 && product.price <= 50;
       if (priceFilter === "high") return product.price > 50;
+      return true;
     });
 
   // Function to open WhatsApp with a pre-filled message
   const orderOnWhatsApp = (product) => {
     const message = `Hello, I'm interested in purchasing the "${product.name}" for $${product.price}. Please provide more details.`;
-    const phoneNumber = "1234567890"; // Replace with your WhatsApp number
+    const phoneNumber = "0757086742"; // Replace with your WhatsApp number
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
   };
@@ -76,7 +77,7 @@ const FeaturedProducts = ({ products }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
           />
-          <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
         </div>
 
         {/* Price Filter Dropdown */}
@@ -91,7 +92,7 @@ const FeaturedProducts = ({ products }) => {
             <option value="mid">$20 - $50</option>
             <option value="high">Above $50</option>
           </select>
-          <FaFilter className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <FaFilter className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
         </div>
       </div>
 
@@ -104,7 +105,7 @@ const FeaturedProducts = ({ products }) => {
               className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-xl"
             >
               <Image
-                src={product.image}
+                src={Array.isArray(product.image) ? product.image[0] : product.image}
                 alt={product.name}
                 width={350} 
                 height={280}
@@ -119,15 +120,11 @@ const FeaturedProducts = ({ products }) => {
                 <div className="flex flex-row w-full gap-4 mt-4 sm:flex-col justify-center sm:w-auto">
                 {/* Order on WhatsApp Button */}
                 <button
-                  onClick={() => {
-                    const message = `Hello, I'm interested in ordering *${product.name}* for $${product.price}. Can you provide more details?`;
-                    const whatsappURL = `https://wa.me/0757086742?text=${encodeURIComponent(message)}`;
-                    window.open(whatsappURL, "_blank");
-                  }}
+                  onClick={() => orderOnWhatsApp(product)}
                   className="bg-green-500 text-white px-5 py-2 rounded-md hover:bg-green-600 transition shadow-md flex items-center justify-center gap-2"
                 >
                   📞 Order on WhatsApp
-                </button>
+                </button>;
 
                 {/* Add to Cart Button */}
                 <button
@@ -217,7 +214,7 @@ const FeaturedProducts = ({ products }) => {
 
                 {/* Add to Cart Button */}
                 <button
-                  onClick={() => addToCart(selectedProduct)}
+                  onClick={() => selectedProduct && addToCart(selectedProduct)}
                   className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg text-lg transition shadow-lg transform hover:scale-105"
                 >
                   🛒 Add to Cart

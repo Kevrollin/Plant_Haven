@@ -123,7 +123,7 @@ const AboutPage = () => {
           >
             {reviews.map((review, index) => (
               <div key={index} className="min-w-[300px] p-6 bg-white rounded-lg shadow-md text-left">
-                <p className="text-gray-700">"{review.text}"</p>
+                <p className="text-gray-700">&quot;{review.text}&quot</p>
                 <p className="mt-3 font-semibold">- {review.author}</p>
               </div>
             ))}

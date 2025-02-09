@@ -9,15 +9,17 @@ const Cart = () => {
 
   // Fetch cart items from localStorage on component mount
   useEffect(() => {
+    if (typeof window !== "undefined") {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(storedCart);
+    }
   }, []);
 
   // Helper function to update the cart in localStorage and component state
   const updateCart = (newCart) => {
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
-    window.dispatchEvent(new Event("storage")); // Trigger navbar update
+    window.dispatchEvent(new Event("cartUpdated")); // Trigger navbar update
   };
 
   // Increase quantity for a given product
@@ -72,10 +74,10 @@ const Cart = () => {
             {cart.map((item) => (
               <tr key={item.id} className="text-center">
                 <td className="border p-3 flex items-center space-x-3">
-                  <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                  <image src={item.image} alt={item.name || "product image"} className="w-16 h-16 object-cover rounded" />
                   <span>{item.name}</span>
                 </td>
-                <td className="border p-3">${item.price}</td>
+                <td className="border p-3">${(Number(item.price) * item.quantity).toFixed(2)}</td>
                 <td className="border p-3">
                   <div className="flex items-center justify-center space-x-2">
                     <button onClick={() => decreaseQuantity(item.id)} className="px-2 py-1 bg-gray-300 rounded">
@@ -104,7 +106,10 @@ const Cart = () => {
           <p className="text-xl font-bold">
             Total: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}
           </p>
-          <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+          <button
+            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            disabled={cart.length === 0}
+          >
             Checkout
           </button>
         </div>
