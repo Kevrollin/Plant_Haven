@@ -1,0 +1,17 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/about": "pages/about.js",
+  "/checkout": "pages/checkout.js",
+  "/api/subscribe": "pages/api/subscribe.js",
+  "/cart": "pages/cart.js",
+  "/contact": "pages/contact.js",
+  "/": "pages/index.js",
+  "/login": "pages/login.js",
+  "/product/[id]": "pages/product/[id].js",
+  "/profile": "pages/profile.js",
+  "/shop": "pages/shop.js",
+  "/signin": "pages/signin.js",
+  "/_document": "pages/_document.js"
+}
